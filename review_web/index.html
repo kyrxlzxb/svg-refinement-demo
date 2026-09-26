@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SVG Layout Review</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div><strong>SVG Layout Review</strong><span id="task-label" class="muted"></span></div>
+    <div class="top-actions">
+      <span id="revision-label" class="muted"></span>
+      <button id="undo" title="Undo (Ctrl+Z)">Undo</button>
+      <button id="redo" title="Redo (Ctrl+Y)">Redo</button>
+      <button id="save-draft">Save draft</button>
+      <button id="prepare" class="primary">Finish layout · split arrows</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="workspace" aria-label="Layout review workspace">
+      <div class="view-panel">
+        <div class="view-title">Reference <span>Drag the projected selection to move it</span></div>
+        <div id="reference-frame" class="canvas-frame reference-frame">
+          <img id="reference-image" src="/api/reference" alt="Reference road sign">
+          <div id="reference-projection" class="projection"></div>
+        </div>
+      </div>
+      <div class="view-panel">
+        <div class="view-title">Current SVG <span>Click to select or deselect</span></div>
+        <div id="normal-frame" class="canvas-frame">
+          <div id="normal-svg" class="svg-host"></div>
+          <div id="normal-highlight" class="highlight-host"></div>
+        </div>
+      </div>
+      <div class="view-panel">
+        <div class="view-title">Structure <span>Outlined elements, including covered layers</span></div>
+        <div id="structure-frame" class="canvas-frame">
+          <div id="structure-svg" class="svg-host"></div>
+        </div>
+      </div>
+      <aside class="inspector">
+        <div class="inspector-head">
+          <strong id="selected-title">Nothing selected</strong>
+          <button id="clear-selection" class="quiet">Clear</button>
+        </div>
+        <div id="selected-preview" class="selected-preview"><span class="muted">Selected elements appear here</span></div>
+        <details class="id-details"><summary>Element IDs</summary><div id="selected-list" class="selected-list"></div></details>
+
+        <div class="control-group">
+          <label>Move step <input id="step" type="number" min="0.01" step="0.1" value="1"></label>
+          <label>Axis <select id="axis"><option value="both">Both</option><option value="x">Horizontal only</option><option value="y">Vertical only</option></select></label>
+          <div class="dpad">
+            <span></span><button data-move="up" aria-label="Move up">↑</button><span></span>
+            <button data-move="left" aria-label="Move left">←</button><button data-move="down" aria-label="Move down">↓</button><button data-move="right" aria-label="Move right">→</button>
+          </div>
+        </div>
+
+        <div id="text-controls" class="control-group hidden">
+          <strong>Text</strong>
+          <label>Content <input id="text-content" type="text"></label>
+          <label>Font size <input id="font-size" type="number" min="0.1" step="0.5"></label>
+          <label>Horizontal width <input id="text-width" type="number" min="0.1" step="0.5" placeholder="Natural width"></label>
+          <label>Font family <input id="font-family" type="text" list="font-options"></label>
+          <datalist id="font-options"></datalist>
+          <button id="apply-text">Apply text changes</button>
+        </div>
+
+        <div class="control-group">
+          <strong>Layer order</strong>
+          <div class="layer-buttons">
+            <button data-layer="backward">Back one</button><button data-layer="forward">Forward one</button>
+            <button data-layer="back">To back</button><button data-layer="front">To front</button>
+          </div>
+        </div>
+        <div class="control-group">
+          <strong>Quick selections</strong>
+          <div id="presets" class="presets"></div>
+          <button id="save-preset" class="quiet">Save current selection</button>
+        </div>
+        <div id="warnings" class="warnings"></div>
+      </aside>
+    </section>
+
+    <div id="notice" class="notice" role="status"></div>
+    <section id="results" class="results hidden">
+      <div class="results-head">
+        <div><h2>Direction outputs</h2><p>Inspect each isolated SVG and its overlay with the edited sign.</p></div>
+        <button id="finalize" class="primary">Confirm final outputs</button>
+      </div>
+      <div class="official-preview"><div class="view-title">Backend render of edited SVG</div><img id="official-render" alt="Backend SVG render"></div>
+      <div id="direction-grid" class="direction-grid"></div>
+    </section>
+  </main>
+
+  <div id="candidate-menu" class="candidate-menu hidden" role="menu"></div>
+</body>
+</html>

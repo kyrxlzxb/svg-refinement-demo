@@ -94,6 +94,30 @@ analysis, the program renders the current SVG to PNG and builds an element
 atlas. Bedrock therefore sees three images: the reference, the current SVG
 render, and the labeled element atlas, plus the manifest and repair history.
 
+## Human layout review
+
+The local review editor opens after the automatic alignment stage. It shows
+the reference PNG, the normally rendered SVG, and a selectable outline view
+on one screen. The editor supports simultaneous movement of selected layers,
+text content/font/size/width changes, layer order, edge warnings, and
+undo/redo. It projects the selected SVG geometry onto the reference image so
+an operator can drag it toward the intended position.
+
+Copy [`review-task.example.json`](review-task.example.json), replace its paths
+and IDs, and follow the contract in
+[`docs/HUMAN_REVIEW_HANDOFF.md`](docs/HUMAN_REVIEW_HANDOFF.md). Then launch:
+
+```bash
+python review_app.py --config review-task.json --punchout your_module:run_punchout
+```
+
+Open `http://127.0.0.1:8765`. The editor accepts the original reference PNG,
+the latest complete SVG, and the existing arrow-to-Shield ID mapping. The
+punch-out adapter must write one `<direction_id>.svg` per mapping entry. Its
+signature and the output layout are documented in the handoff. Without an
+adapter, layout edits and `draft.svg` saving work, while the final direction
+generation control remains disabled.
+
 ## Repair-plan contract
 
 The model returns JSON with this shape:
@@ -174,10 +198,12 @@ The original discussion documents are preserved unchanged under `docs/`:
 
 - `SVG Refinement Demo — Coding Agent Plan.md`
 - `SVG Refinement — Implementation Plan.md`
-- `SVG後処理ワークフロー検討メモ.md`
+- the original Japanese workflow memo
 
 They are design references, not runtime instructions or executable inputs.
 
-The proposed human review stage and its pipeline handoff are specified in
-`docs/人工布局调整与流水线交接方案.md`. That stage is a design proposal; this repository does
-not yet contain its Web interface or punch-out adapter.
+The human review editor and its pipeline handoff are described in
+`docs/HUMAN_REVIEW_HANDOFF.md`. Run it with `python review_app.py --config
+review-task.json --punchout your_module:run_punchout`. The review interface
+is implemented; the existing direction punch-out function must be connected
+through the documented adapter signature.

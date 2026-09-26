@@ -1,0 +1,28 @@
+{
+  "task_id": "sign-001",
+  "reference_png": "reference.png",
+  "current_svg": "aligned.svg",
+  "output_dir": "review-output",
+  "arrow_shield_map": [
+    {
+      "direction_id": "up",
+      "arrow_path_ids": ["path_021"],
+      "shield_path_ids": ["path_031", "path_032", "path_033"],
+      "shield_text_ids": ["text_008"]
+    },
+    {
+      "direction_id": "right",
+      "arrow_path_ids": ["path_022"],
+      "shield_path_ids": ["path_041", "path_042"],
+      "shield_text_ids": ["text_009"]
+    }
+  ],
+  "shield_groups": [
+    {"group_id": "up Shield frame", "path_ids": ["path_031", "path_032", "path_033"]}
+  ],
+  "arrow_groups": [
+    {"group_id": "shared arrow base", "path_ids": ["path_021", "path_022"]}
+  ],
+  "font_options": ["Noto Sans CJK JP", "Arial"],
+  "locked_ids": ["rect_001"]
+}
