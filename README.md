@@ -29,7 +29,7 @@ geometry is regenerated or edited.
 - A Bedrock model that supports images through the Converse API
 - An Amazon Bedrock API key, or normal AWS SDK credentials
 
-Install dependencies at the company environment where the demo will run:
+Install dependencies in the runtime environment:
 
 ```bash
 python -m pip install -r requirements.txt
@@ -154,7 +154,7 @@ reverted; the rejected candidate files remain available for inspection.
 - This repository contains no provider abstraction, UI, database, workflow
   framework, or production infrastructure.
 
-## Company-side smoke check
+## Smoke check
 
 After configuring Bedrock, run one real pair and verify:
 
@@ -177,3 +177,7 @@ The original discussion documents are preserved unchanged under `docs/`:
 - `SVG後処理ワークフロー検討メモ.md`
 
 They are design references, not runtime instructions or executable inputs.
+
+The proposed human review stage and its pipeline handoff are specified in
+`docs/人工布局调整与流水线交接方案.md`. That stage is a design proposal; this repository does
+not yet contain its Web interface or punch-out adapter.
